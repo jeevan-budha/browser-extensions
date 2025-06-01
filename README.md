@@ -1,3 +1,4 @@
+
 # Frontend Mentor - Browser extensions manager UI
 
 ![Design preview for the Browser extensions manager UI coding challenge](./preview.jpg)
@@ -98,3 +99,6 @@ We love receiving feedback! We're always looking to improve our challenges and o
 This challenge is completely free. Please share it with anyone who will find it useful for practice.
 
 **Have fun building!** 🚀
+
+This project will be a fun way to practice working with dynamic data, filtering data, color theming, building a responsive grid, and more!
+
