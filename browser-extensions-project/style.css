@@ -84,16 +84,19 @@ nav {
   margin-top: 10px;
   margin-inline: auto;
   height: 80vh;
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 10px;
+  grid-template-rows: repeat(5, 1fr); */
+  gap: 60px;
   /* background-color: aliceblue; */
 }
 
 .main {
   height: 200px;
-  width: 350px;
+  width: 20vw;
   background-color:hsl(225, 23%, 24%);
   border:0.1px solid #ffffff;
   border-radius: 10px;
