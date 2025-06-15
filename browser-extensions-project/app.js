@@ -1,62 +1,22 @@
 const extensionList = document.querySelector(".extensions-list");
+let allData = [];
 
-// const data = fetch('../data.json')
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error('Failed to load JSON');
-//     }
-//     return response.json();
-//   })
-//   .then((data) => {
-//     data.forEach(finalData => {
-//       const picture =` <div class="main">
-//         <div class="img-para">
-//           <div><img src=" alt="" /></div>
-//           <div>
-//             <h3>hgfghjkjh</h3>
-//             <p>sdfghgfergh</p>
-//           </div>
-//         </div>
-//         <div class="rem-toggle">
-//           <div><button>Remove</button></div>
-//             <label class="toggle-switch">
-//               <input type="checkbox" />
-//               <span class="slider"></span>
-//             </label>
-//         </div>
-//       </div>`
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-
-
-//  <div class="main">
-//         <div class="img-para">
-//           <div><img src="../assets/images/logo-dom-snapshot.svg" alt="" /></div>
-//           <div>
-//             <h3>hgfghjkjh</h3>
-//             <p>sdfghgfergh</p>
-//           </div>
-//         </div>
-//         <div class="rem-toggle">
-//           <div><button>Remove</button></div>
-//             <label class="toggle-switch">
-//               <input type="checkbox" />
-//               <span class="slider"></span>
-//             </label>
-//         </div>
-//       </div>
-
+// 1. fetch data from data.json
 
 async function getData() {
   const res = await fetch("../data.json");
   const finalData = await res.json();
+  allData = finalData;
+  displayItem(allData);
+}
 
-  finalData.forEach((data) => {
+// 2. display the data on screen
+
+const displayItem = (dataArray) => {
+  dataArray.forEach((data, index) => {
     const mainDiv = document.createElement("div");
     mainDiv.classList.add("main");
-    mainDiv.innerHTML =`
+    mainDiv.innerHTML = `
       <div class="img-para">
           <div><img src="${data.logo}" alt="image" /></div>
           <div>
@@ -65,16 +25,58 @@ async function getData() {
           </div>
         </div>
         <div class="rem-toggle">
-          <div><button>Remove</button></div>
+          <div><button onclick ='removeItem(${index})'>Remove</button></div>
             <label class="toggle-switch">
-              <input type="checkbox" class = "toggle-btn"/>
+              <input type="checkbox" class ="toggle-btn" ${
+                data.isActive ? "checked" : ""
+              }/>
               <span class="slider"></span>
             </label>
         </div>
-      `
-    extensionList.append(mainDiv);
-    console.log(data.isActive);
+      `;
+
+       const checkbox = mainDiv.querySelector(".toggle-btn");
+
+    // Add event listener for the checkbox
+    checkbox.addEventListener("change",()=>{
+      data.isActive = checkbox.checked;
+    });
+
+    extensionList.appendChild(mainDiv);
+  });
+};
+
+const filter = (value) => {
+  let buttons = document.querySelectorAll(".button-value");
+
+  buttons.forEach((button) => {
+    if (value.toLowerCase() === button.innerText.toLowerCase()) {
+      button.classList.add("active");
+    } else {
+      button.classList.remove("active");
+    }
   });
 
-}
+  let cards = document.querySelectorAll(".main");
+
+  cards.forEach((card) => {
+    if (value === "all") {
+      card.classList.remove("hide");
+    } else if (card.classList.contains(value)) {
+      card.classList.remove("hide");
+    } else {
+      card.classList.add("hide");
+    }
+  });
+};
+
 getData();
+
+const activeFilter = document.querySelector("#active");
+activeFilter.addEventListener('click',()=>{
+  extensionList.innerHTML ="";
+  if(allData.isActive ===true){
+    extensionList.innerHTML=``
+  }
+})
+

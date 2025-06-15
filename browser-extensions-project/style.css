@@ -179,3 +179,12 @@ nav {
 .toggle-switch input:checked+.slider::before {
     transform: translateX(26px);
 }
+
+.active{
+  background-color: hsl(3, 86%, 64%);
+  color: #ffffff;
+}
+
+.hide{
+  display: none;
+}
